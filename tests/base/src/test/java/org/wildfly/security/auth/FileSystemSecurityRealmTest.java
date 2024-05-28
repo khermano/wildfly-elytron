@@ -92,7 +92,7 @@ import org.wildfly.security.password.spec.EncryptablePasswordSpec;
 import org.wildfly.security.password.spec.IteratedSaltedPasswordAlgorithmSpec;
 import org.wildfly.security.password.spec.OneTimePasswordSpec;
 import org.wildfly.security.password.spec.SaltedPasswordAlgorithmSpec;
-import org.xipki.common.util.Base64;
+import org.xipki.util.Base64;
 
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Igor</a>

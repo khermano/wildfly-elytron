@@ -1,0 +1,92 @@
+{
+  "OCSPServer": {
+    "master": true,
+    "responders": {
+      "responder": {
+        "name": "responder1",
+        "servletPaths": {
+          "servletPath": "/ocsp"
+        },
+        "mode": "RFC2560",
+        "inheritCaRevocation": true,
+        "signer": "signer1",
+        "request": "request1",
+        "response": "response1",
+        "stores": {
+          "store": "dbstore1"
+        }
+      }
+    },
+    "signers": {
+      "signer": {
+        "name": "signer1",
+        "type": "JKS",
+        "key": "password=Elytron,keystore=file:target/test-classes/jks/ocsp-responder.keystore",
+        "algorithms": {
+          "algorithm": "SHA256withRSA"
+        }
+      }
+    },
+    "datasources": {
+      "datasource": {
+        "name": "datasource1",
+        "conf": {
+          "file": "target/test-classes/org/wildfly/security/ssl/ocsp-db.properties"
+        }
+      }
+    },
+    "stores": {
+      "store": {
+        "name": "dbstore1",
+        "source": {
+          "type": "XIPKI-DB",
+          "datasource": "datasource1",
+          "conf": ""
+        },
+        "ignoreExpiredCert": true,
+        "ignoreNotYetValidCert": true,
+        "retentionInterval": -1,
+        "unknownSerialAsGood": false,
+        "includeArchiveCutoff": true,
+        "includeCrlID": false
+      }
+    },
+    "requestOptions": {
+      "requestOption": {
+        "name": "request1",
+        "supportsHttpGet": true,
+        "maxRequestListCount": 10,
+        "maxRequestSize": 4096,
+        "versions": {
+          "version": "v1"
+        },
+        "nonce": {
+          "occurrence": "optional",
+          "minLen": 4,
+          "maxLen": 32
+        },
+        "signatureRequired": false,
+        "validateSignature": false,
+        "hashAlgorithms": {
+          "algorithm": [
+            "SHA1",
+            "SHA256",
+            "SHA384",
+            "SHA512"
+          ]
+        }
+      }
+    },
+    "responseOptions": {
+      "responseOption": {
+        "name": "response1",
+        "responderIdByName": true,
+        "embedCertsMode": "SIGNER_AND_CA",
+        "includeRevReason": true,
+        "includeInvalidityDate": false,
+        "includeCertHash": false,
+        "certhashAlgorithm": "SHA1"
+      }
+    }
+  }
+}
